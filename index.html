@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>เกมฟังเสียงสัตว์ พร้อมสะกดคำ!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-top: #fef08a;    
+            --bg-bottom: #fdba74; 
+            --primary: #ea580c;
+        }
+
+        body { font-family: 'Sarabun', sans-serif; background: linear-gradient(135deg, var(--bg-top) 0%, var(--bg-bottom) 100%); min-height: 100vh; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; touch-action: manipulation;}
+        
+        .score-board { position: absolute; top: 15px; left: 20px; background: rgba(255,255,255,0.9); padding: 5px 15px; border-radius: 20px; font-size: 20px; font-weight: bold; color: #d97706; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        .timer-board { position: absolute; top: 15px; right: 20px; background: rgba(255,255,255,0.9); padding: 5px 15px; border-radius: 20px; font-size: 24px; font-weight: bold; color: #ef4444; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s;}
+        .timer-warning { animation: pulseTime 0.5s infinite alternate; background: #fee2e2; border: 2px solid #ef4444; transform: scale(1.1);}
+        @keyframes pulseTime { from { transform: scale(1.1); } to { transform: scale(1.2); } }
+
+        .header { background: white; padding: 15px 30px; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 600px; box-sizing: border-box; margin-top: 50px;}
+        .header h1 { font-family: 'Mali', cursive; color: var(--primary); margin: 0 0 5px 0; font-size: 26px; }
+        .instruction { font-size: 18px; font-weight: bold; color: #475569; margin: 0; }
+
+        .sound-zone { margin: 30px 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 180px; }
+        .btn-speaker { 
+            font-size: 80px; background: white; width: 130px; height: 130px; 
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.3); border: 5px solid #ffedd5;
+            cursor: pointer; transition: 0.2s; -webkit-tap-highlight-color: transparent;
+            animation: floatSpeaker 2s infinite ease-in-out alternate;
+        }
+        .btn-speaker:active { transform: scale(0.9); box-shadow: 0 5px 10px rgba(234, 88, 12, 0.2); }
+        .speaker-text { font-family: 'Mali', cursive; color: var(--primary); font-weight: bold; margin-top: 15px; font-size: 20px;}
+        @keyframes floatSpeaker { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+
+        .playing-sound { animation: soundWave 0.5s infinite alternate !important; border-color: #fb923c !important;}
+        @keyframes soundWave { 0% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7); } 100% { box-shadow: 0 0 0 20px rgba(234, 88, 12, 0); } }
+
+        .choices-container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 500px; opacity: 0.5; pointer-events: none; transition: 0.3s;}
+        .choices-container.active { opacity: 1; pointer-events: auto; }
+
+        .choice-btn {
+            background: white; border: 4px solid #fff7ed; border-radius: 25px;
+            font-size: 65px; width: 100px; height: 100px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            transition: 0.2s; -webkit-tap-highlight-color: transparent;
+        }
+        .choice-btn:active { transform: scale(0.9); }
+        .shake { animation: shakeAnim 0.4s ease-in-out; background: #fee2e2; border-color: #ef4444; }
+        @keyframes shakeAnim { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .overlay.show { opacity: 1; pointer-events: auto; }
+        .win-box { background: white; padding: 40px; border-radius: 30px; text-align: center; transform: scale(0.8); transition: 0.4s cubic-bezier(0.4, 0.2, 0.2, 1); box-shadow: 0 20px 40px rgba(0,0,0,0.3); max-width: 90%;}
+        .overlay.show .win-box { transform: scale(1); }
+        
+        .win-box h2 { font-family: 'Mali', cursive; color: #10b981; font-size: 28px; margin: 0 0 10px 0; }
+        
+        /* สไตล์สำหรับคำศัพท์ภาษาอังกฤษ */
+        .en-word { font-family: 'Mali', cursive; color: var(--primary); font-size: 40px; font-weight: bold; margin: 10px 0 0 0; line-height: 1; text-transform: uppercase;}
+        .spell-word { font-family: 'Sarabun', sans-serif; color: #64748b; font-size: 22px; font-weight: bold; letter-spacing: 4px; margin-bottom: 10px; }
+
+        .btn-next { background: var(--primary); color: white; border: none; padding: 15px 30px; font-size: 20px; font-family: 'Mali', cursive; border-radius: 20px; cursor: pointer; margin-top: 15px; box-shadow: 0 5px 15px rgba(234, 88, 12, 0.4); }
+        
+        .credit { margin-top: auto; color: #9a3412; font-size: 14px; font-weight: bold; padding: 20px 0;}
+    </style>
+</head>
+<body>
+
+    <div class="score-board">⭐ <span id="starCount">0</span></div>
+    
+    <div class="timer-board" id="timerBoard">⏱️ <span id="timeDisplay">5</span></div>
+
+    <div class="header">
+        <h1>🎧 ทายเสียงสัตว์โลก</h1>
+        <p class="instruction" id="instructionText">จิ้มลำโพง เพื่อเริ่มจับเวลา 5 วิ!</p>
+    </div>
+
+    <div class="sound-zone">
+        <div class="btn-speaker" id="btnSpeaker" onclick="playSoundAndStartTimer()">🔊</div>
+        <div class="speaker-text" id="speakerText">จิ้มฟังเสียงเลย!</div>
+    </div>
+
+    <div class="choices-container" id="choicesZone"></div>
+
+    <div class="credit">Made with ❤️ by <strong>[Ni.Noi]</strong></div>
+
+    <div class="overlay" id="winOverlay">
+        <div class="win-box">
+            <div id="resultEmoji" style="font-size: 65px; margin-bottom: 5px;">🎉</div>
+            <h2 id="resultTitle">ถูกต้องจ้า!</h2>
+            
+            <div class="en-word" id="resultEnWord"></div>
+            <div class="spell-word" id="resultSpellWord"></div>
+            
+            <p id="resultDesc" style="font-size: 20px; color: #475569; margin-top:0;">นี่คือเสียงของ ช้าง</p>
+            <button class="btn-next" id="nextBtn" onclick="startNewRound()">👉 เล่นข้อต่อไป 👈</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
