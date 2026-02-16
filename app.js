@@ -1,34 +1,34 @@
-// 1. คลังสัตว์ พร้อม "เสียงร้องจำลอง" (Text-to-Speech)
+// 1. คลังสัตว์ 29 ชนิด (ใช้ไฟล์เสียง MP3 ของจริง!)
 const animalDB = [
-    { emoji: "🐶", name: "หมา", en: "Dog", sound: "โฮ่ง โฮ่ง โฮ่ง" },
-    { emoji: "🐱", name: "แมว", en: "Cat", sound: "เมี้ยววว เมี้ยววว" },
-    { emoji: "🐷", name: "หมู", en: "Pig", sound: "อู๊ด อู๊ด อู๊ด" },
-    { emoji: "🐮", name: "วัว", en: "Cow", sound: "มอออ มอออ" },
-    { emoji: "🐴", name: "ม้า", en: "Horse", sound: "ฮี้ ฮี้ ฮี้" },
-    { emoji: "🐑", name: "แกะ", en: "Sheep", sound: "แบ้ แบ้" },
-    { emoji: "🐐", name: "แพะ", en: "Goat", sound: "แบะ แบะ" },
-    { emoji: "🐔", name: "ไก่", en: "Chicken", sound: "กะต๊าก กะต๊าก" },
-    { emoji: "🦆", name: "เป็ด", en: "Duck", sound: "ก้าบ ก้าบ ก้าบ" },
-    { emoji: "🐭", name: "หนู", en: "Mouse", sound: "จี๊ด จี๊ด จี๊ด" },
-    { emoji: "🐰", name: "กระต่าย", en: "Rabbit", sound: "หงุบ หงับ หงุบ หงับ" },
-    { emoji: "🐓", name: "ไก่โต้ง", en: "Rooster", sound: "เอก อี เอ้ก เอ้ก" },
-    { emoji: "🦁", name: "สิงโต", en: "Lion", sound: "โฮกกกกก โฮกกกกก" },
-    { emoji: "🐯", name: "เสือ", en: "Tiger", sound: "แฮ่ แฮ่" },
-    { emoji: "🐘", name: "ช้าง", en: "Elephant", sound: "แปล๊น แปล๊น" },
-    { emoji: "🐵", name: "ลิง", en: "Monkey", sound: "เจี๊ยก เจี๊ยก เจี๊ยก" },
-    { emoji: "🦍", name: "กอริลลา", en: "Gorilla", sound: "ฮูฮู ฮ่าฮ่า" },
-    { emoji: "🐻", name: "หมี", en: "Bear", sound: "แฮ่ก แฮ่ก" },
-    { emoji: "🐍", name: "งู", en: "Snake", sound: "ฟ่อออ ฟ่อออ" },
-    { emoji: "🐸", name: "กบ", en: "Frog", sound: "อ๊บ อ๊บ อ๊บ" },
-    { emoji: "🐺", name: "หมาป่า", en: "Wolf", sound: "บรู๊วววววว" },
-    { emoji: "🦊", name: "หมาจิ้งจอก", en: "Fox", sound: "อิ๊ อิ๊ อิ๊" },
-    { emoji: "🦌", name: "กวาง", en: "Deer", sound: "แอะ แอะ" },
-    { emoji: "🦓", name: "ม้าลาย", en: "Zebra", sound: "อี๊ฮ่า อี๊ฮ่า" },
-    { emoji: "🦒", name: "ยีราฟ", en: "Giraffe", sound: "หง่ำ หง่ำ" },
-    { emoji: "🦛", name: "ฮิปโป", en: "Hippo", sound: "ฮึ่ม ฮึ่ม" },
-    { emoji: "🦏", name: "แรด", en: "Rhino", sound: "ฟืด ฟาด ฟืด ฟาด" },
-    { emoji: "🐪", name: "อูฐ", en: "Camel", sound: "ฮื้ม ฮื้ม" },
-    { emoji: "🦘", name: "จิงโจ้", en: "Kangaroo", sound: "ดึ๋ง ดึ๋ง ดึ๋ง" }
+    { emoji: "🐶", name: "หมา", en: "Dog", file: "dog.mp3" },
+    { emoji: "🐱", name: "แมว", en: "Cat", file: "cat.mp3" },
+    { emoji: "🐷", name: "หมู", en: "Pig", file: "pig.mp3" },
+    { emoji: "🐮", name: "วัว", en: "Cow", file: "cow.mp3" },
+    { emoji: "🐴", name: "ม้า", en: "Horse", file: "horse.mp3" },
+    { emoji: "🐑", name: "แกะ", en: "Sheep", file: "sheep.mp3" },
+    { emoji: "🐐", name: "แพะ", en: "Goat", file: "goat.mp3" },
+    { emoji: "🐔", name: "ไก่", en: "Chicken", file: "chicken.mp3" },
+    { emoji: "🦆", name: "เป็ด", en: "Duck", file: "duck.mp3" },
+    { emoji: "🐭", name: "หนู", en: "Mouse", file: "mouse.mp3" },
+    { emoji: "🐰", name: "กระต่าย", en: "Rabbit", file: "rabbit.mp3" },
+    { emoji: "🐓", name: "ไก่โต้ง", en: "Rooster", file: "rooster.mp3" },
+    { emoji: "🦁", name: "สิงโต", en: "Lion", file: "lion.mp3" },
+    { emoji: "🐯", name: "เสือ", en: "Tiger", file: "tiger.mp3" },
+    { emoji: "🐘", name: "ช้าง", en: "Elephant", file: "elephant.mp3" },
+    { emoji: "🐵", name: "ลิง", en: "Monkey", file: "monkey.mp3" },
+    { emoji: "🦍", name: "กอริลลา", en: "Gorilla", file: "gorilla.mp3" },
+    { emoji: "🐻", name: "หมี", en: "Bear", file: "bear.mp3" },
+    { emoji: "🐍", name: "งู", en: "Snake", file: "snake.mp3" },
+    { emoji: "🐸", name: "กบ", en: "Frog", file: "frog.mp3" },
+    { emoji: "🐺", name: "หมาป่า", en: "Wolf", file: "wolf.mp3" },
+    { emoji: "🦊", name: "หมาจิ้งจอก", en: "Fox", file: "fox.mp3" },
+    { emoji: "🦌", name: "กวาง", en: "Deer", file: "deer.mp3" },
+    { emoji: "🦓", name: "ม้าลาย", en: "Zebra", file: "zebra.mp3" },
+    { emoji: "🦒", name: "ยีราฟ", en: "Giraffe", file: "giraffe.mp3" },
+    { emoji: "🦛", name: "ฮิปโป", en: "Hippo", file: "hippo.mp3" },
+    { emoji: "🦏", name: "แรด", en: "Rhino", file: "rhino.mp3" },
+    { emoji: "🐪", name: "อูฐ", en: "Camel", file: "camel.mp3" },
+    { emoji: "🦘", name: "จิงโจ้", en: "Kangaroo", file: "kangaroo.mp3" }
 ];
 
 let currentCorrectAnimal = null;
@@ -36,6 +36,7 @@ let stars = 0;
 let timeLeft = 5;
 let timerInterval;
 let gameActive = false;
+let currentAudioPlayer = null; 
 
 // ดึง Elements
 const btnSpeaker = document.getElementById('btnSpeaker');
@@ -88,7 +89,9 @@ function shootConfetti() {
 function startNewRound() {
     winOverlay.classList.remove('show');
     clearInterval(timerInterval);
+    if(currentAudioPlayer) currentAudioPlayer.pause(); 
     gameActive = false;
+    currentAudioPlayer = null;
     
     timeLeft = 5;
     timeDisplay.innerText = timeLeft;
@@ -119,7 +122,7 @@ function startNewRound() {
     });
 }
 
-// 3. ระบบดำเนินรายการ (จับเวลา + ให้คอมพิวเตอร์พูดเสียงร้อง)
+// 3. ระบบดำเนินรายการ (ใช้เสียงไฟล์ MP3 ของจริง!)
 function playSoundAndStartTimer() {
     if(gameActive || btnSpeaker.classList.contains('playing-sound')) return; 
 
@@ -129,29 +132,36 @@ function playSoundAndStartTimer() {
 
     const thVoice = getBestFemaleVoice('th');
     
-    // สเต็ป 1
     const step1 = new SpeechSynthesisUtterance("ทายสิ เสียงของอะไร");
     step1.lang = 'th-TH'; step1.rate = 0.9;
     if(thVoice) step1.voice = thVoice;
 
-    // สเต็ป 2: ทำเสียงสัตว์ (ปรับ pitch ให้แหลมขึ้นนิดนึงจะได้ฟังดูเป็นการจำลองเสียง)
-    const step2 = new SpeechSynthesisUtterance(currentCorrectAnimal.sound);
-    step2.lang = 'th-TH'; step2.rate = 0.8; step2.pitch = 1.3;
-    if(thVoice) step2.voice = thVoice;
-
-    // สเต็ป 3
     const step3 = new SpeechSynthesisUtterance("จับเวลา 5 วิ เริ่ม!");
     step3.lang = 'th-TH'; step3.rate = 1.0;
     if(thVoice) step3.voice = thVoice;
 
-    // สั่งพูดต่อคิวกัน
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(step1);
-    window.speechSynthesis.speak(step2);
-    window.speechSynthesis.speak(step3);
+    let fallback1 = setTimeout(() => { if(!currentAudioPlayer) step1.onend(); }, 3000);
+    let fallback2;
 
-    // เมื่อพูดสเต็ป 3 จบ
+    step1.onend = () => {
+        clearTimeout(fallback1);
+        
+        // --- 🌟 ดึงเสียง MP3 จากโฟลเดอร์ sounds 🌟 ---
+        currentAudioPlayer = new Audio(`sounds/${currentCorrectAnimal.file}`);
+        
+        // ถ้าไฟล์ไหนเล่นไม่ได้ หรือยังไม่ได้อัปโหลด ให้ข้ามไปเริ่มเวลาเลย
+        currentAudioPlayer.play().catch(e => {
+            console.warn(`โหลดเสียง sounds/${currentCorrectAnimal.file} ไม่ได้!`);
+        });
+
+        setTimeout(() => {
+            window.speechSynthesis.speak(step3);
+            fallback2 = setTimeout(() => { if(!gameActive) step3.onend(); }, 3000);
+        }, 1500);
+    };
+
     step3.onend = () => {
+        clearTimeout(fallback2);
         speakerText.innerText = "รีบตอบเลย!!";
         instructionText.innerText = "จับเวลา! ⏱️";
         choicesContainer.classList.add('active'); 
@@ -165,11 +175,9 @@ function playSoundAndStartTimer() {
             if (timeLeft <= 0) { clearInterval(timerInterval); loseGame(); }
         }, 1000);
     };
-    
-    // กันบั๊ก ถ้าระบบเสียงค้าง ให้บังคับเริ่มเวลา
-    setTimeout(() => {
-        if(!gameActive) step3.onend();
-    }, 6000);
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(step1);
 }
 
 // 4. ระบบคุณครูสอนสะกดภาษาอังกฤษ
@@ -213,6 +221,7 @@ function handleChoiceClick(btn, selectedAnimal) {
         clearInterval(timerInterval); 
         gameActive = false; 
         btnSpeaker.classList.remove('playing-sound');
+        if(currentAudioPlayer) currentAudioPlayer.pause(); // ตอบถูกปุ๊บ หยุดเสียงสัตว์ทันที
 
         stars++;
         starCountDisplay.innerText = stars;
@@ -247,6 +256,7 @@ function handleChoiceClick(btn, selectedAnimal) {
 function loseGame() {
     gameActive = false; 
     btnSpeaker.classList.remove('playing-sound');
+    if(currentAudioPlayer) currentAudioPlayer.pause();
     
     window.speechSynthesis.cancel();
     const loseVoice = new SpeechSynthesisUtterance(`หมดเวลาแล้วจ้า เฉลยคือ ${currentCorrectAnimal.name}`);
